@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace Cloudthinking.BuildTools.ReVersion
 {
     class Program
     {
-        static string filepath = "";
+        static string filePath = "";
         static string version = "";
-        static string start_date = "";
+        static string startDate = "";
         static int Main(string[] args)
         {
             if (!parseCmd(args))
@@ -19,12 +18,11 @@ namespace Cloudthinking.BuildTools.ReVersion
                 return 1;
             }
               
-            if (File.Exists(filepath))
+            if (File.Exists(filePath))
             {
-                Encoding defaultEncoding = TxtFileEncoder.GetEncoding(filepath);
-                string txt = File.ReadAllText(filepath);
+                Encoding defaultEncoding = TxtFileEncoder.GetEncoding(filePath);
+                string txt = File.ReadAllText(filePath);
                 string org_v = SearchVersion(txt);
-                //Console.WriteLine("version: {0}", org_v);
                 string new_v = "";
                 if (string.IsNullOrEmpty(version))
                 {
@@ -34,10 +32,8 @@ namespace Cloudthinking.BuildTools.ReVersion
                 {
                     new_v = version;
                 }
-                //Console.WriteLine("new: {0}", new_v);
-                //Console.ReadKey();
                 txt = txt.Replace(org_v, new_v);
-                using (StreamWriter writer = new StreamWriter(filepath, false, defaultEncoding))
+                using (StreamWriter writer = new StreamWriter(filePath, false, defaultEncoding))
                 {
                     writer.Write(txt);
                 }
@@ -77,12 +73,12 @@ namespace Cloudthinking.BuildTools.ReVersion
             {
                 if (arg_list[0] == "-f")
                 {
-                    filepath = arg_list[1];
+                    filePath = arg_list[1];
                     arg_list.RemoveRange(0, 2);
                 }
                 else if (arg_list[0] == "-s")
                 {
-                    start_date = arg_list[1];
+                    startDate = arg_list[1];
                     arg_list.RemoveRange(0, 2);
                 }
                 else if (arg_list[0] == "-v")
@@ -120,7 +116,7 @@ namespace Cloudthinking.BuildTools.ReVersion
         {
             DateTime dt_start;
             DateTime dt_target;
-            if (!DateTime.TryParse(start_date, out dt_start))
+            if (!DateTime.TryParse(startDate, out dt_start))
             {
                 dt_start = new DateTime(2015, 1, 1);
             }

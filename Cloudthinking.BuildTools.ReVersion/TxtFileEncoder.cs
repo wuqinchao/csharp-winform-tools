@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -99,11 +98,7 @@ namespace Cloudthinking.BuildTools.ReVersion
             }
             return targetEncoding;
         }
-
-
-
         // 新增加一个方法，解决了不带BOM的 UTF8 编码问题   
-
         /// <summary>   
         /// 通过给定的文件流，判断文件的编码类型   
         /// </summary>   
@@ -146,7 +141,6 @@ namespace Cloudthinking.BuildTools.ReVersion
             return reVal;
 
         }
-
         /// <summary>   
         /// 判断是否是不带 BOM 的 UTF8 格式   
         /// </summary>   
